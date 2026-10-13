@@ -62,3 +62,17 @@ layer = FractalBlockSparseAttention(
 
 output = layer(x)
 print(output.shape) # torch.Size([1, 2048, 256])
+
+## Citation
+
+If you use this architecture or find our findings useful in your research, please cite our preprint:
+
+```bibtex
+@article{akkavim2026fractal,
+  title={Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies},
+  author={Akkavim, G{\"o}ksenin},
+  journal={Zenodo Preprints},
+  year={2026},
+  doi={10.5281/zenodo.23351708},
+  url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
+}
