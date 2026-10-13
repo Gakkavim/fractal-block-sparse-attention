@@ -56,6 +56,21 @@ Official PyTorch implementation of **Fractal Block-Sparse Attention**, a determi
 | **8,192** | 16,384 | 632 | 96.14% | 0.2749 TFLOPs | 0.0106 TFLOPs | **25.92x** |
 | **16,384** | 65,536 | 1,272 | 98.06% | 1.0995 TFLOPs | 0.0213 TFLOPs | **51.52x** |
 
+## Citation
+
+If you use this architecture or find our findings useful in your research, please cite our preprint:
+
+```bibtex
+@article{akkavim2026fractal,
+  title={Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies},
+  author={Akkavim, G{\"o}ksenin},
+  journal={Zenodo Preprints},
+  year={2026},
+  doi={10.5281/zenodo.23351708},
+  url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
+}
+
+
 
 ## 🛠️ Quickstart Usage
 
@@ -76,16 +91,3 @@ layer = FractalBlockSparseAttention(
 output = layer(x)
 print(output.shape) # torch.Size([1, 2048, 256])
 
-## Citation
-
-If you use this architecture or find our findings useful in your research, please cite our preprint:
-
-```bibtex
-@article{akkavim2026fractal,
-  title={Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies},
-  author={Akkavim, G{\"o}ksenin},
-  journal={Zenodo Preprints},
-  year={2026},
-  doi={10.5281/zenodo.23351708},
-  url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
-}
