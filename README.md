@@ -46,6 +46,17 @@ Official PyTorch implementation of **Fractal Block-Sparse Attention**, a determi
 
 ---
 
+### 3. Long-Context Scaling & Theoretical FLOP Reduction (Triton Hardware Projections)
+
+| Sequence Length ($N$) | Total Blocks ($M \times M$) | Active Blocks ($\sum \text{Counts}$) | Block Sparsity | Dense Attention | Fractal Triton Attention | Theoretical FLOP Reduction |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **1,024** | 256 | 72 | 71.88% | 0.0043 TFLOPs | 0.0012 TFLOPs | **3.56x** |
+| **2,048** | 1,024 | 152 | 85.16% | 0.0172 TFLOPs | 0.0026 TFLOPs | **6.74x** |
+| **4,096** | 4,096 | 312 | 92.38% | 0.0687 TFLOPs | 0.0052 TFLOPs | **13.13x** |
+| **8,192** | 16,384 | 632 | 96.14% | 0.2749 TFLOPs | 0.0106 TFLOPs | **25.92x** |
+| **16,384** | 65,536 | 1,272 | 98.06% | 1.0995 TFLOPs | 0.0213 TFLOPs | **51.52x** |
+
+
 ## 🛠️ Quickstart Usage
 
 ```python
@@ -78,13 +89,3 @@ If you use this architecture or find our findings useful in your research, pleas
   doi={10.5281/zenodo.23351708},
   url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
 }
-
-### 3. Long-Context Scaling & Theoretical FLOP Reduction (Triton Hardware Projections)
-
-| Sequence Length ($N$) | Total Blocks ($M \times M$) | Active Blocks ($\sum \text{Counts}$) | Block Sparsity | Dense Attention | Fractal Triton Attention | Theoretical FLOP Reduction |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **1,024** | 256 | 72 | 71.88% | 0.0043 TFLOPs | 0.0012 TFLOPs | **3.56x** |
-| **2,048** | 1,024 | 152 | 85.16% | 0.0172 TFLOPs | 0.0026 TFLOPs | **6.74x** |
-| **4,096** | 4,096 | 312 | 92.38% | 0.0687 TFLOPs | 0.0052 TFLOPs | **13.13x** |
-| **8,192** | 16,384 | 632 | 96.14% | 0.2749 TFLOPs | 0.0106 TFLOPs | **25.92x** |
-| **16,384** | 65,536 | 1,272 | 98.06% | 1.0995 TFLOPs | 0.0213 TFLOPs | **51.52x** |
