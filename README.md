@@ -1,6 +1,8 @@
 # fractal-block-sparse-attention
 Sub-quadratic Block-Sparse Attention via odd binomial fractal trees (n=3; 2n±1). Achieves 10.7x speedup and 13x memory reduction with zero context loss.
 
+📄 **Read the Paper:** [Download / View PDF](subquadratic_fractal_attention.pdf)
+
 # Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23351708.svg)](https://doi.org/10.5281/zenodo.23351708)
