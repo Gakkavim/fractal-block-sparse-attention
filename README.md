@@ -159,3 +159,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://www.g
 
 ```
 
+
+### 4. Post-Adaptation Inference Recovery (LoRA)
+
+Following a brief 200-step LoRA calibration ($r=8, \alpha=16$ on $W_q, W_v$) targeting attention temperature shift, entropy collapse was successfully mitigated:
+
+- **Pre-adaptation (Zero-Shot):** Model collapsed into terminal newline loops (`\n\n\n`) due to uncalibrated softmax mass.
+- **Post-adaptation (200 Steps, 49s T4 GPU):** Model successfully decoded natural language tokens and reached standard `<|>` (EOS) termination without infinite repetition loops.
