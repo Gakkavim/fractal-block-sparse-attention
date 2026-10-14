@@ -1,23 +1,15 @@
-# fractal-block-sparse-attention
-Sub-quadratic Block-Sparse Attention via odd binomial fractal trees (n=3; 2n±1). Achieves 10.7x speedup and 13x memory reduction with zero context loss.
-
 # Fractal Block-Sparse Attention: Sub-Quadratic Transformers via Odd Binomial Fractal Tree Topologies
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23351708.svg)](https://doi.org/10.5281/zenodo.23351708)
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces%20Demo-yellow)](https://huggingface.co/spaces/Gakkavim/fractal-attention-explorer)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-📄 **Read the Paper:** [Download / View PDF](subquadratic_fractal_attention.pdf)
+Official PyTorch implementation of **Fractal Block-Sparse Attention**, a deterministic, hardware-aligned sub-quadratic self-attention mechanism governed by odd binomial fractal tree dynamics ($n=3; 2n \pm 1$).
 
-# Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies
+Achieves up to **10.7x speedup** and **13x memory reduction** with zero context loss.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23351708.svg)](https://doi.org/10.5281/zenodo.23351708)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-
-Official PyTorch implementation of **Fractal Block-Sparse Attention**, a deterministic, hardware-aligned sub-quadratic self-attention mechanism governed by odd binomial fractal tree dynamics.
-
-📖 **Paper / Preprint:** [DOI: 10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)
+📖 **Paper / Preprint:** [Download / View PDF](subquadratic_fractal_attention.pdf) | [DOI: 10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)
 
 ---
 
@@ -50,8 +42,6 @@ Official PyTorch implementation of **Fractal Block-Sparse Attention**, a determi
 | **Local-Window Block** | $\mathcal{O}(N)$ Band ($w=1$) | 2.7684 | 6.0% | Failed (Blind Spot) |
 | **Fractal Block-Sparse** | $\mathcal{O}(N \log N)$ Fractal | 0.0381 | **100.0%** | Full Context (4-Hop Highway) |
 
----
-
 ### 3. Long-Context Scaling & Theoretical FLOP Reduction (Triton Hardware Projections)
 
 | Sequence Length ($N$) | Total Blocks ($M \times M$) | Active Blocks ($\sum \text{Counts}$) | Block Sparsity | Dense Attention | Fractal Triton Attention | Theoretical FLOP Reduction |
@@ -62,23 +52,14 @@ Official PyTorch implementation of **Fractal Block-Sparse Attention**, a determi
 | **8,192** | 16,384 | 632 | 96.14% | 0.2749 TFLOPs | 0.0106 TFLOPs | **25.92x** |
 | **16,384** | 65,536 | 1,272 | 98.06% | 1.0995 TFLOPs | 0.0213 TFLOPs | **51.52x** |
 
-## Citation
-
-If you use this architecture or find our findings useful in your research, please cite our preprint:
-
-```bibtex
-@article{akkavim2026fractal,
-  title={Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies},
-  author={Akkavim, G{\"o}ksenin},
-  journal={Zenodo Preprints},
-  year={2026},
-  doi={10.5281/zenodo.23351708},
-  url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
-}
-
-
+---
 
 ## 🛠️ Quickstart Usage
+
+```bash
+pip install -r requirements.txt
+
+```
 
 ```python
 import torch
@@ -95,5 +76,34 @@ layer = FractalBlockSparseAttention(
 )
 
 output = layer(x)
-print(output.shape) # torch.Size([1, 2048, 256])
+print(output.shape)  # torch.Size([1, 2048, 256])
 
+```
+
+---
+
+## 📜 Citation
+
+If you use this architecture or find our findings useful in your research, please cite our preprint:
+
+```bibtex
+@article{akkavim2026fractal,
+  title={Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies},
+  author={Akkavim, G{\"o}ksenin},
+  journal={Zenodo Preprints},
+  year={2026},
+  doi={10.5281/zenodo.23351708},
+  url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
+}
+
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+
+```
