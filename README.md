@@ -1,8 +1,3 @@
-Aşağıda, canlı `TinyLlama-1.1B` karşılaştırma sonuçlarını, matematiksel sıfır-atış (zero-shot) analizini ve `llama_patch` kullanımını kusursuz şekilde içine alan, GitHub standartlarına göre tamamen düzenlenmiş **`README.md`** dosyasının eksiksiz metni yer almaktadır.
-
----
-
-```markdown
 # Fractal Block-Sparse Attention: Sub-Quadratic Transformers via Odd Binomial Fractal Tree Topologies
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23351708.svg)](https://doi.org/10.5281/zenodo.23351708)
