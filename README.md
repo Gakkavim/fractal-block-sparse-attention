@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23351708.svg)](https://doi.org/10.5281/zenodo.23351708)
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces%20Demo-yellow)](https://huggingface.co/spaces/Gakkavim/fractal-attention-explorer)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 
 Official PyTorch implementation of **Fractal Block-Sparse Attention**, a deterministic, hardware-aligned sub-quadratic self-attention mechanism governed by odd binomial fractal tree dynamics ($n=3; 2n \pm 1$).
 
@@ -80,8 +80,14 @@ The drop-in replacement module (`FractalLlamaAttention`) was evaluated against n
 2. **Latency & Throughput Bounds:**  
    On autoregressive single-token decoding steps ($Q_{len} = 1$), per-token latency remains comparable to dense execution on CPU. Hardware-level acceleration via sparse block skipping is predominantly realized on GPU platforms during high-throughput parallel prefill phases ($N \ge 2048$).
 3. **Attention Entropy Collapse (Why LoRA Adaptation is Required):**  
-   Pretrained dense weights rely on normalizing attention distributions across the entire sequence history $\sum_{j=1}^{N} \exp(S_{ij})$. When severe structural pruning is introduced zero-shot without fine-tuning, softmax denominators shrink abruptly, causing probability mass to over-concentrate on residual local tokens. The model experiences acute perplexity spikes and collapses into safe, low-entropy terminal tokens (such as repeated newline `\n` characters) following initial punctuation.  
-   *Conclusion:* While structural invariance is mathematically sound, deploying drop-in fractal sparsity onto pretrained dense checkpoints requires a short adaptation phase (e.g., 500–1000 step LoRA fine-tuning) to recalibrate attention temperature and projection projections to the tree topology.
+   Pretrained dense weights rely on normalizing attention distributions across the entire sequence history $\sum_{j=1}^{N} \exp(S_{ij})$. When severe structural pruning is introduced zero-shot without fine-tuning, softmax denominators shrink abruptly, causing probability mass to over-concentrate on residual local tokens. The model experiences acute perplexity spikes and collapses into safe, low-entropy terminal tokens (such as repeated newline `\n` characters) following initial punctuation.
+
+### 4. Post-Adaptation Inference Recovery (LoRA)
+
+Following a brief 200-step LoRA calibration ($r=8, \alpha=16$ on $W_q, W_v$) targeting attention temperature shift, entropy collapse was successfully mitigated:
+
+- **Pre-adaptation (Zero-Shot):** Model collapsed into terminal newline loops (`\n\n\n`) due to uncalibrated softmax mass.
+- **Post-adaptation (200 Steps, 49s T4 GPU):** Model successfully decoded natural language tokens and reached standard `<|>` (EOS) termination without infinite repetition loops.
 
 ---
 
@@ -125,8 +131,8 @@ model = AutoModelForCausalLM.from_pretrained(model_id)
 
 # Recursively patch all attention layers to Fractal Block-Sparse Attention
 model = replace_llama_attention_with_fractal(
-    model,
-    block_size=64,
+    model, 
+    block_size=64, 
     local_window_blocks=1
 )
 print("✓ Patched LLaMA model ready for long-context inference & adaptation.")
@@ -153,28 +159,14 @@ If you use this architecture or find our findings useful in your research, pleas
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
-
-```
-
-
-### 4. Post-Adaptation Inference Recovery (LoRA)
-
-Following a brief 200-step LoRA calibration ($r=8, \alpha=16$ on $W_q, W_v$) targeting attention temperature shift, entropy collapse was successfully mitigated:
-
-- **Pre-adaptation (Zero-Shot):** Model collapsed into terminal newline loops (`\n\n\n`) due to uncalibrated softmax mass.
-- **Post-adaptation (200 Steps, 49s T4 GPU):** Model successfully decoded natural language tokens and reached standard `<|>` (EOS) termination without infinite repetition loops.
-
----
-
 ## ⚖️ License & Dual-Licensing (Commercial Use)
 
-This repository is licensed under the **GNU Affero General Public License v3.0 (AGPLv3)**. 
+This repository is licensed under the **GNU Affero General Public License v3.0 (AGPLv3)**.
 
-- **Open Source / Research:** You are free to inspect, modify, adapt, and run this research software under AGPLv3 terms (any network-deployed or derivative system must also be open-sourced under AGPLv3).
-- **Commercial Licensing & Enterprise Integrations:** For closed-source commercial deployments, proprietary AI hardware integrations (Triton/CUDA custom kernels), patent licensing, or acqui-hire / strategic partnership inquiries, please contact:
-  - **Author:** Göksenin Akkavim
-  - **Email:** `gokseninakkavim@gmail.com`
-  - **GitHub:** [@Gakkavim](https://github.com/Gakkavim)
+* **Open Source / Research:** You are free to inspect, modify, adapt, and run this research software under AGPLv3 terms (any network-deployed or derivative system must also be open-sourced under AGPLv3).
+* **Commercial Licensing & Enterprise Integrations:** For closed-source commercial deployments, proprietary AI hardware integrations (Triton/CUDA custom kernels), patent licensing, or acqui-hire / strategic partnership inquiries, please contact:
+* **Author:** Göksenin Akkavim
+* **Email:** `gokseninakkavim@gmail.com`
+* **GitHub:** [@Gakkavim](https://github.com/Gakkavim)
+
+
