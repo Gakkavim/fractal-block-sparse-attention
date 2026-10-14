@@ -166,3 +166,15 @@ Following a brief 200-step LoRA calibration ($r=8, \alpha=16$ on $W_q, W_v$) tar
 
 - **Pre-adaptation (Zero-Shot):** Model collapsed into terminal newline loops (`\n\n\n`) due to uncalibrated softmax mass.
 - **Post-adaptation (200 Steps, 49s T4 GPU):** Model successfully decoded natural language tokens and reached standard `<|>` (EOS) termination without infinite repetition loops.
+
+---
+
+## ⚖️ License & Dual-Licensing (Commercial Use)
+
+This repository is licensed under the **GNU Affero General Public License v3.0 (AGPLv3)**. 
+
+- **Open Source / Research:** You are free to inspect, modify, adapt, and run this research software under AGPLv3 terms (any network-deployed or derivative system must also be open-sourced under AGPLv3).
+- **Commercial Licensing & Enterprise Integrations:** For closed-source commercial deployments, proprietary AI hardware integrations (Triton/CUDA custom kernels), patent licensing, or acqui-hire / strategic partnership inquiries, please contact:
+  - **Author:** Göksenin Akkavim
+  - **Email:** `gokseninakkavim@gmail.com`
+  - **GitHub:** [@Gakkavim](https://github.com/Gakkavim)
