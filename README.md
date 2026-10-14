@@ -1,3 +1,8 @@
+Aşağıda, canlı `TinyLlama-1.1B` karşılaştırma sonuçlarını, matematiksel sıfır-atış (zero-shot) analizini ve `llama_patch` kullanımını kusursuz şekilde içine alan, GitHub standartlarına göre tamamen düzenlenmiş **`README.md`** dosyasının eksiksiz metni yer almaktadır.
+
+---
+
+```markdown
 # Fractal Block-Sparse Attention: Sub-Quadratic Transformers via Odd Binomial Fractal Tree Topologies
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23351708.svg)](https://doi.org/10.5281/zenodo.23351708)
@@ -91,3 +96,71 @@ The drop-in replacement module (`FractalLlamaAttention`) was evaluated against n
 
 ```bash
 pip install -r requirements.txt
+
+```
+
+```python
+import torch
+from fractal_attention import FractalBlockSparseAttention
+
+# Batch size 1, sequence length 2048, hidden dimension 256, 8 heads
+x = torch.randn(1, 2048, 256)
+
+layer = FractalBlockSparseAttention(
+    embed_dim=256,
+    num_heads=8,
+    block_size=32,
+    local_window_blocks=1
+)
+
+output = layer(x)
+print(output.shape)  # torch.Size([1, 2048, 256])
+
+```
+
+### 2. Drop-in Patching for Hugging Face LLaMA Models
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from fractal_attention.llama_patch import replace_llama_attention_with_fractal
+
+# Load any LLaMA family model
+model_id = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+model = AutoModelForCausalLM.from_pretrained(model_id)
+
+# Recursively patch all attention layers to Fractal Block-Sparse Attention
+model = replace_llama_attention_with_fractal(
+    model,
+    block_size=64,
+    local_window_blocks=1
+)
+print("✓ Patched LLaMA model ready for long-context inference & adaptation.")
+
+```
+
+---
+
+## 📜 Citation
+
+If you use this architecture or find our findings useful in your research, please cite our preprint:
+
+```bibtex
+@article{akkavim2026fractal,
+  title={Sub-Quadratic Block-Sparse Attention via Odd Binomial Fractal Tree Topologies},
+  author={Akkavim, G{\"o}ksenin},
+  journal={Zenodo Preprints},
+  year={2026},
+  doi={10.5281/zenodo.23351708},
+  url={[https://doi.org/10.5281/zenodo.23351708](https://doi.org/10.5281/zenodo.23351708)}
+}
+
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+
+```
+
